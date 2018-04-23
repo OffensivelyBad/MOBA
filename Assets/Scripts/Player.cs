@@ -26,15 +26,16 @@ public class Player : MonoBehaviour {
         RaycastHit hit;
 
         if (Input.GetButtonDown("Fire2")) {
-            if (Physics.Raycast(ray, out hit, 100)) {
+            if (Physics.Raycast(ray, out hit)) {
                 if (hit.collider.CompareTag("Enemy")) {
                     targetedEnemy = hit.transform;
                     enemyClicked = true;
                 } else {
                     walking = true;
                     enemyClicked = false;
-                    navAgent.destination = hit.point;
+                    navAgent.SetDestination(hit.point);
                     navAgent.isStopped = false;
+                    NavMeshAgent newAgent = navAgent;
                 }
             }
         }
