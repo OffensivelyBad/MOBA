@@ -36,8 +36,8 @@ public class Cam : MonoBehaviour {
 
         gameObject.transform.Translate(xAxis * 100, 0.0f, zAxis * 100);
 
-        //if (Input.GetButtonDown("Fire2"))
-        //{
+        if (Input.GetButton("Fire1"))
+        {
 
             // Ensure the cursor is always locked when set
             if (lockCursor)
@@ -83,7 +83,7 @@ public class Cam : MonoBehaviour {
                 var yRotation = Quaternion.AngleAxis(_mouseAbsolute.x, transform.InverseTransformDirection(Vector3.up));
                 transform.localRotation *= yRotation;
             }
-        //}
+        }
     }
 
 }
