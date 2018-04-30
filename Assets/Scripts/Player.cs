@@ -26,6 +26,7 @@ public class Player : MonoBehaviour {
         RaycastHit hit;
 
         if (Input.GetButtonDown("Fire2")) {
+
             if (Physics.Raycast(ray, out hit)) {
                 if (hit.collider.CompareTag("Enemy")) {
                     targetedEnemy = hit.transform;
@@ -35,7 +36,9 @@ public class Player : MonoBehaviour {
                     enemyClicked = false;
                     navAgent.SetDestination(hit.point);
                     navAgent.isStopped = false;
-                    NavMeshAgent newAgent = navAgent;
+
+                    print("hit: " + hit.point);
+                    print("destination: " + navAgent.destination);
                 }
             }
         }
