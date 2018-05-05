@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Assertions;
 
 public class Player : MonoBehaviour {
 
+    [SerializeField] private Transform bulletSpawnPoint;
+    [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float shootingDistance = 0;
     private Transform targetedEnemy;
     private bool enemyClicked;
@@ -16,6 +19,8 @@ public class Player : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        Assert.IsNotNull(bulletSpawnPoint);
+        Assert.IsNotNull(bulletPrefab);
         animator = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
 	}
@@ -46,6 +51,7 @@ public class Player : MonoBehaviour {
 
         if (enemyClicked) {
             MoveAndShoot();
+            return;
         }
 
         if (navAgent.remainingDistance <= navAgent.stoppingDistance) {
@@ -82,6 +88,9 @@ public class Player : MonoBehaviour {
     }
 
     void Fire() {
-        print("fire!!");
+        animator.SetTrigger("Attack");
+        GameObject fireball = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation) as GameObject;
+        fireball.GetComponent<Rigidbody>().velocity = fireball.transform.forward * 300;
+        Destroy(fireball, 3.5f);
     }
 }
